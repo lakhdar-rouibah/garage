@@ -75,8 +75,31 @@ if($_POST){
                     $_SESSION['registration'] = "Registration success";
                     $_SESSION['icon'] = "success";
 
-                    //$rooter = new controlers\Rooter('Login');
-                    exit(header('location: ?rec=Login'));
+                    // genrate code for token password
+                    $code = service\Tools::code();
+                    // create url
+                    $url = "http://lakhdar.ovh/index.php?rec=Password%code=".$code;
+
+                    service\tools::pass($code, "admin"); 
+
+                    $message = "Bonjour M.".$_POST['first_name']." ".$_POST['name']." GALE VEHICLE vous souhaie le bienvenue dans l'entreprise ";
+    
+                    $tel = $_POST['tel'];
+                    
+                    shell_exec('echo "'.$message.'" | gammu-smsd-inject TEXT '.$tel.'');
+    
+                    
+                    $to = $_POST['mail'];
+                    $mail_sub ="confirmation inscription";
+                    $msg ="Bonjour M.".$_POST['first_name']." ".$_POST['name']."n GALE VEHICLE vous souhaite le bienvenue dans l'entreprise\n
+                    vous avvez ce lien pour mettre a jour votre mot de passe ".$url;
+                    
+                    $mail = service\Tools::send_mail($to, $mail_sub, $msg);
+    
+                    if($mail === "ok"):
+                        exit(header('location: ?rec=Success&msg=Admin&mail='.$to));
+                    endif;
+                    
                 }
 
             }else {

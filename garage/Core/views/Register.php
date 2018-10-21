@@ -25,7 +25,7 @@
             ?>
             <div class="form-group bg-danger p-3 pb-5 rounded ">
             <label for="exampleFormControlSelect1">Privilege</label>
-            <select class="form-control" id="exampleFormControlSelect1" name="id_workplace">
+            <select class="form-control" id="privilege" name="id_workplace">
                 <?php
                     foreach($select as $key=>$val):
                 ?>
@@ -52,7 +52,7 @@
             <div class="form-group">
                 <input type="date" class="form-control" id="date_exit" name="date_exit" placeholder="Enter date exit">
             </div>
-            <select class="form-control" id="exampleFormControlSelect1" name="id_period">
+            <select class="form-control" id="contrat" name="id_period">
                 <option value="">Enter type of contract</option>
                 <?php
                     foreach($select_period as $key=>$val):

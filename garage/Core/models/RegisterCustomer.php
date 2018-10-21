@@ -14,32 +14,63 @@ use  Core\app\controlers as controlers;
 
 // instantiate table CUSTOMER
 $customer =  new service\Seed('CUSTOMER');
+$password =  new service\Seed('PASSWORD');
+$c_change =  new service\Seed('CUST_CHANGE');
 
 if($_POST){
 
     // search all in table CUSTOMER
-    $mail = array("mail", $_POST['mail']);
+    $mail = array("mail" => $_POST['mail']);
     $src_ad = $customer->search_in_table("*", $mail);
 
     if(!$src_ad){
 
+        // check if not equal null
         $array = array('first_name', 'name', 'mail', 'tel', 'address', 'zip', 'city', 'password');
-        $return = service\Tools::is_empty($_POST, $array);
+        
+        // add check mail in last of array $_POST
+        $push = array("check_mail"=>"null");
+        $post = array_merge((array)$_POST, (array)$push);
+        $return = service\Tools::is_empty($post, $array);
 
         if(!$return){
-            $_SESSION['registration'] = $customer->insert_in_table($_POST);
+
+            // genrate code for token password
+            $code = service\Tools::code();
+
+            // create url
+            $url = "http://lakhdar.ovh/index.php?rec=Validate%code=".$code;
+
+            // insert customer data
+            $_SESSION['registration'] = $customer->insert_in_table($post);
+
+            service\tools::pass($code, "customer");
+
             $_SESSION['icon'] = "danger";
             if (!$_SESSION['registration']) {
 
                 $_SESSION['registration'] = "Registration sccess";
                 $_SESSION['icon'] = "success";
 
-                $message = "Bonjour M.".$_POST['first_name']." ".$_POST['name']." GALE VEHICLE vous remercie pour votre confiance et confirme votre inscription";
+                $message = "Bonjour M.".$_POST['first_name']." ".$_POST['name']." GALE VEHICLE vous remercie pour votre confiance et confirme votre inscription 
+                merci de clicker sur ce lien pour activer votre compte ";
+
                 $tel = $_POST['tel'];
-                $ltd = 'http://localhost/garage/';
-                $req = "?rec=LoginCustomer";
-                service\Tools::sms($message, $tel, $ltd, $req);
-                // exit(header('location: ?rec=LoginCustomer'));
+                
+                shell_exec('echo "'.$message.'" | gammu-smsd-inject TEXT '.$tel.'');
+
+                
+                $to = $_POST['mail'];
+                $mail_sub ="confirmation inscription";
+                $msg ="Bonjour M.".$_POST['first_name']." ".$_POST['name']." GALE VEHICLE vous souhaite le bienvenue et vous confirme votre inscription 
+                merci de clicker sur ce lien pour activer votre compte ".$url;
+                
+                $mail = service\Tools::send_mail($to, $mail_sub, $msg);
+
+                if($mail === "ok"):
+                    exit(header('location: ?rec=Success&msg=registerCustomer&mail='.$to));
+                endif;
+
                 
             }
         }else {
@@ -48,5 +79,10 @@ if($_POST){
             $_SESSION['icon'] = "danger";
 
         }
+    }else {
+
+        $_SESSION['registration'] = "Address mail existe!";
+        $_SESSION['icon'] = "danger";
+
     }
 }

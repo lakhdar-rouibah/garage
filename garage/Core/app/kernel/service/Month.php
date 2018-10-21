@@ -19,7 +19,7 @@ class Month {
     public $_month;
     public $_year;
 
-    public function __construct(?int $month = null, ?int $year = null){
+    public function __construct(int $month = null, int $year = null){
 
         if($month === null || $month < 1 || $month > 12){
 

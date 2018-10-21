@@ -14,7 +14,7 @@
     <div class="col-lg-4 col-sm-8 item-login mt-5 mb-5" >
         <form method="post" action= "">
             <?php
-                if($_SESSION['registration']):
+                if($_SESSION['registration'] != null):
             ?>
                 <div class="alert alert-<?=$_SESSION['icon']?>" role="alert">
                 <?= $_SESSION['registration'] ?>

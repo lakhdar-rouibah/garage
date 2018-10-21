@@ -26,7 +26,7 @@
                 <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
             </div>
             <div class="form-group d-flex justify-content-end">
-                <button type="submit" class="btn">Submit</button>
+                <a href="?rec=Forgot&user=admin"><span class="btn mr-3">Forgot password</span></a> <button type="submit" class="btn">Submit</button>
             </div>
         </form>
     </div>

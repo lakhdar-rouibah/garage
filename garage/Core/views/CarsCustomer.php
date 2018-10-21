@@ -89,7 +89,7 @@
 
                             ?>
                                         <div class="alert alert-success text-center" role="alert">
-                                            <h5>Appointement : <?= $v['date']; ?></h5> 
+                                            <h5>Appointement : <?= date('d-m-Y', $v['date']); ?></h5> 
                                             AT <strong><?= $select_appoint[0]['app'] ?> o'clock</strong>
                                         </div>
                                         <a href="?req=Enter&id=<?= $val[1]?>&mark=<?= $val[2]?>&register_number=<?= $val[4]?>&date=<?= $v['date']?>&val=<?= $_GET['val']?>" class=""><button class="btn mt-0 pt-4 pb-4" >Enter</button></a>

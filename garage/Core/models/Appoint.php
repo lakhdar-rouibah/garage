@@ -15,7 +15,7 @@ $take =  new service\Seed('TAKE');
 
 // recovred appointement in table APPOINTEMENT
 $res_appoint = $appoint->search_in_table("*", null);
-$array = array("date"=>$_GET['date']);
+$array = array("date"=>strtotime($_GET['date']));
 // get appointement in table TAKE where date equal $_GET['date']
 $res_take = $take->search_in_table("*", $array);
 

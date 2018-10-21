@@ -22,11 +22,8 @@
             <div class="form-group">
                 <input type="email" class="form-control" id="mail" name="mail" placeholder="Enter email">
             </div>
-            <div class="form-group">
-                <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
-            </div>
             <div class="form-group d-flex justify-content-end">
-                <a href="?rec=Forgot&user=customer"><span class="btn mr-3">Forgot password</span></a><button type="submit" class="btn">Submit</button>
+                <button type="submit" class="btn">Submit</button>
             </div>
         </form>
     </div>

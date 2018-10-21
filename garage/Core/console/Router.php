@@ -12,9 +12,25 @@ switch ($rec){
     case "Password";
         $desktop = new controlers\Controler('Password');
     break;
+    // case for login staff
+    case "Forgot";
+        $desktop = new controlers\Controler('Forgot');
+    break;
+    // case for login staff
+    case "Change";
+        $desktop = new controlers\Controler('Change');
+    break;
     // case for login customer
     case "LoginCustomer";
         $desktop = new controlers\Controler('LoginCustomer');
+    break;
+    // case for login customer
+    case "Success";
+        $desktop = new controlers\Controler('Success');
+    break;
+    // case for login customer
+    case "Validate";
+        $desktop = new controlers\Controler('Validate');
     break;
     // case for register customer
     case "RegisterCustomer";

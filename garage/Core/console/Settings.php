@@ -202,6 +202,7 @@ if(!$select){
 // if table Admin is empty
 if(!$ad){
 
+    
     // open Register form
     $rooter = new controlers\Controler('Register');
 

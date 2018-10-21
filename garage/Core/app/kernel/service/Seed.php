@@ -100,13 +100,23 @@ class Seed {
                     $return = "Invalid mail";
                 }
 
+            }else if(strpos($post[$result[$i]], ",") !== false){
+
+                    $vergule = str_replace(",", "ù", $post[$result[$i]]);
+                    $values .= "'".$vergule."',";
             }else {
 
-                $values .= "'".$post[$result[$i]]."',";
+                $values .= "'".htmlentities(trim($post[$result[$i]]))."',";
             }
         }
 
+
         $values = substr($values, 0, -1);
+
+        if(strpos($values, "ù") !== false){
+
+            $values= str_replace("ù", ",", $values);
+        }
 
         if($return == null){
 
@@ -127,7 +137,7 @@ class Seed {
      * @param array $data
      * @return array
      */
-    public function search_in_table (string $id, ?array $data= null) {
+    public function search_in_table (string $id, array $data = null) {
 
         $value = '';
         if ($data){
@@ -158,7 +168,7 @@ class Seed {
                 $sql = "SELECT ".$id." FROM ".$this->_table;
             }else {
                 $sql = "SELECT ".$id." FROM ".$this->_table." WHERE ".$value;
-
+                //print_r($value);die();
             }
             // send $sql to function sql to executate
             $res =  $this->_pdo->query($sql);
@@ -222,6 +232,8 @@ class Seed {
      */
     public function update_table (array $data, array $condition){
 
+        $value = "";
+        $cvalue = "";
         if ($data){
             // shell array $data
             foreach($data as $key => $val){
@@ -271,6 +283,7 @@ class Seed {
         }
             
             $sql ="UPDATE ".$this->_table." SET ".$value." WHERE ".$cvalue;
+            //echo $sql; die();
             // send $sql to function sql to executate
             $res =  $this->_pdo->exec($sql); //or var_dump($this->_pdo->errorInfo());;
     }

@@ -556,4 +556,21 @@ body {
         }
     }
 
+    .row-coockies{
+
+        display: flex;
+        position: fixed;
+        left: 0px;
+        bottom: 0px;
+        margin: 0px;
+        color: $white;
+        background-color: $dark;
+
+        .col-lg-10{
+
+            color: $dark;
+            background-color: $orange;
+        }
+    }
+
 }

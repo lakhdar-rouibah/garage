@@ -1,0 +1,5 @@
+Options -Indexes 
+RewriteEngine On  
+RewriteCond %{HTTP_REFERER} !^$  
+RewriteCond %{HTTP_REFERER} !^http://lakhdar.ovh/.*$ [NC] 
+RewriteRule .*\.(gif|JPG|png|jpe?g)$ http://lakhdar.ovh [R,L]

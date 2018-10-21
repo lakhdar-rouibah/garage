@@ -27,10 +27,19 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $array = array("mail"=>$mail, "password"=>$password);
     // search in table Admin mail and password and sotre in variable $res_admin
     $res_admin = $admin->search_in_table("*", $array);
-
     
-    // if variable $res_admin existe
-    if($res_admin){
+    if(!$res_admin) {
+
+        // session login equal false 
+        $_SESSION['registration'] = 'Password or mail is not correct!';
+        $_SESSION['icon'] = "danger";
+
+    }else if(intval($res_admin[0]['check_mail']) === 0){
+
+        $_SESSION['registration'] = 'You must activate your account!';
+        $_SESSION['icon'] = "danger";
+
+    }else if(intval($res_admin[0]['check_mail']) === 1){
 
         $id = $res_admin[0]['id_customer'];
         $name = $res_admin[0]['first_name']." ".$res_admin[0]['name'];
@@ -39,13 +48,5 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         exit(header('location: ?rec=DeskTopCustomer'));
 
     
-    }else {
-
-        // session login equal false 
-        $_SESSION['registration'] = 'Password or mail is not correct!';
-        $_SESSION['icon'] = "danger";
-        
-        
-
     }
 }
